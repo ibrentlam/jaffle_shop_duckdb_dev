@@ -161,53 +161,56 @@ dbt docs serve
 <details>
 <summary>GitHub Codespaces / Dev Containers </summary>
 
-#### Steps
+This project includes a complete dev container configuration in the `.devcontainer/` directory that provides a consistent, reproducible development environment with Python 3.11, dbt-core, dbt-duckdb, and all necessary tools pre-installed.
+
+**For detailed documentation, see [.devcontainer/README.md](.devcontainer/README.md)**
+
+#### Quick Start with GitHub Codespaces
 
 1. Ensure you have [Codespaces](https://github.com/features/codespaces) enabled for your GitHub organization or turned on as a beta feature if you're an individual user
 2. Click the green **Code** button on near the top right of the page of this repo's homepage (you may already be on it)
 3. Instead of cloning the repo like you normally would, instead select the **Codespaces** tab of the pop out, then "Create codespace on `duckdb`"
    ![dbt_full_deploy_commands](images/open_in_codespaces.png)
-4. Wait for codespace to boot (~1 min?)
-5. Decide whether you'd like to use the Web IDE or open the codespace in your local environment
-6. When the codespace opens, a Task pane will show up and call `dbt build` just to show you how it's done
-7. Decide whether or not you'd like the recommended extensions installed (like **dbt Power User extension**)
-8. Open up a new terminal and type:
-    ```
+4. Wait for codespace to boot (~1 min)
+5. The container will automatically run `dbt --version` and `dbt debug` on startup
+6. Open a new terminal and run:
+    ```bash
     dbt build
     ```
-9. Explore some of the bells and whistles (see below)
 
-If you don't have Codespaces or would like to just run the environment in a local Docker container, you can by:
+#### Quick Start with VS Code Dev Containers
+
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-2. Install the VSCode [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension (formerly known as the "Remote - Containers" extension). Video tutorial [here](https://learn.microsoft.com/en-us/shows/beginners-series-to-dev-containers/installing-the-remote-containers-extension-2-of-8--beginners-series-to-dev-containers).
-2. Clone this repo and open it in VSCode
-1. First time: View > Command Palette > Remote-Containers: Open Folder in Container
-    - Wait for container to build -- expected to take several minutes
-    - Open a new terminal
-3. Subsequent times: Click **Reopen in Container** and wait for container to spin up
+2. Install the VS Code [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+3. Clone this repo and open it in VS Code
+4. Click **Reopen in Container** when prompted (or use Command Palette: `Dev Containers: Reopen in Container`)
    ![Reopen in Container](https://user-images.githubusercontent.com/8158673/181360469-c6f3eb94-6b65-4a8f-93a0-3438d182ee66.png)
-1. Continue on step 7 above
+5. Wait for container to build (first time takes a few minutes)
+6. Open a new terminal and run:
+    ```bash
+    dbt build
+    ```
 
+#### Development Environment Features
 
-#### bells and whistles
+The dev container includes several productivity features:
 
-There's some bells and whistles defined in the [.devcontainer.json]().devcontainer.json) that are worth calling out. Also a great reference is the [Setting up VSCode for dbt](https://dbt-msft.github.io/dbt-msft-docs/docs/guides/vscode_setup/) guide.
+1. **Syntax highlighting** for dbt SQL files via the `vscode-dbt` extension
+2. **SQLFluff linting** as you type - errors appear underlined in red and in the Problems panel
+3. **Autocomplete** for dbt macros and Jinja templates
+4. **Quick navigation** using `CMD+R` (Mac) or `CTRL+R` (Windows/Linux) to jump between:
+    - Model files (`models/`)
+    - Compiled SQL (`target/compiled/`)
+    - Run SQL (`target/run/`)
+5. **YAML schema validation** with autocomplete for dbt project files:
+    - `dbt_project.yml`
+    - `packages.yml`
+    - `selectors.yml`
+    - Model property files (`models/**/*.yml`)
 
-1. there is syntax highlighting provided by the `vdcode-dbt` extension. However, it is configured such that files in your `target/run` and `target/compiled` folder are not syntax highlighted, as a reminder that these files are not where you should be making changes!
-2. basic `sqlfluff` linting is enabled as you type. Syntax errors will be underlined in red at the error, and will also be surfaced in the **Problems** tab of the Terminal pane. It's configured to lint as you type.
-3. Autocompletion is enabled for generic dbt macros via the `vdcode-dbt` extension. For example, if you type `macro` you'll notice a pop up that you can select with the arrow keys then click tab to get a macro snippet.
-  ![image](https://user-images.githubusercontent.com/8158673/181362230-2c00d666-6131-4619-93aa-2e30d9c2bfea.png)
-  ![image](https://user-images.githubusercontent.com/8158673/181362274-fa7d71ff-07fc-4b4a-97c3-a0464fbe4c7d.png)
-4. the `find-related` extension allows an easy shortcut to navigating using `CMD`+`R`to jump from
-    - a model file to it's corresponding compiled version,
-    - from a compiled file to either the original model file or the version in `target/run`
-5. The `vscode-yaml` YAML, combined with the JSON schema defined in [dbt-labs/dbt-jsonschema](https://github.com/dbt-labs/dbt-jsonschema), autocomplete options while working with dbt's YAML files: i.e. :
-    - Project definition files (`dbt_project.yml`)
-    - Package files (`packages.yml`)
-    - Selectors files (`selectors.yml`)
-    - Property files (`models/whatever.yml`)
+For more information on customization, troubleshooting, and advanced usage, see the [dev container documentation](.devcontainer/README.md).
 
-
+Additional reference: [Setting up VSCode for dbt](https://dbt-msft.github.io/dbt-msft-docs/docs/guides/vscode_setup/) guide.
 
 </details>
 
