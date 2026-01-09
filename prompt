@@ -1,0 +1,20 @@
+
+Your job will be to add a dev container specification for this git repo.
+
+The specifications for this dev container will be in the standard .devcontainer directory in a devcontainer.json
+file and accompanying optional docker files. 
+
+This dev container will be used with Visual Studio code for database development using the open source dbt processor. 
+
+The container should be built with an appropriate version of python and the dbt-core, dbt-postgres and dbt-duckdb 
+libraries installed.
+
+You can build and check the container with the devcontainer command-line tool which is already installed in this environment.
+
+A successful build will result in running "dbt build" for this project in the container without run errors. The build runs
+successfully in the current enviroment. 
+
+Document the project.
+
+You may ask for clarification at any point. 
+
