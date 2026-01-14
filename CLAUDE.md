@@ -58,12 +58,13 @@ A complete dev container configuration in `.devcontainer/` directory:
 
 **Files**:
 1. `devcontainer.json` - VS Code configuration with 9 pre-installed extensions
-2. `Dockerfile` - Python 3.11 + dbt-core 1.9.4 + dbt-duckdb 1.9.1
+2. `Dockerfile` - Python 3.11 + dbt-core 1.9.4 + dbt-duckdb 1.9.1 + DuckDB CLI
 3. `README.md` - Comprehensive documentation (325+ lines)
 
 **Key Decisions**:
 - **Python 3.11**: Matches host environment (3.11.14)
 - **Base Image**: `mcr.microsoft.com/devcontainers/python:3.11`
+- **DuckDB CLI**: Standalone binary installed in `/usr/local/bin/duckdb` (latest version)
 - **Working Directory**: `/workspaces/jaffle_shop_duckdb_dev`
 - **Post-Create Command**: `dbt --version && dbt debug`
 - **Remote User**: `vscode`
@@ -118,7 +119,11 @@ dbt test      # Run tests
 dbt docs generate
 dbt docs serve
 
-# Database queries
+# Database queries (using standalone DuckDB CLI)
+duckdb jaffle_shop.duckdb
+duckdb jaffle_shop.duckdb -c "SELECT * FROM customers LIMIT 5"
+
+# Database queries (using Python-based duckcli)
 duckcli jaffle_shop.duckdb
 duckcli jaffle_shop.duckdb -e "SELECT * FROM customers LIMIT 5"
 ```
@@ -291,8 +296,13 @@ dbt test --select <model>  # Test specific model
 dbt docs generate          # Generate docs
 dbt docs serve             # Serve docs
 
-# DuckDB
-duckcli jaffle_shop.duckdb                    # Interactive CLI
+# DuckDB (standalone CLI)
+duckdb jaffle_shop.duckdb                    # Interactive CLI
+duckdb jaffle_shop.duckdb -c "<SQL>"        # Execute SQL
+echo "<SQL>" | duckdb jaffle_shop.duckdb    # Pipe SQL
+
+# DuckDB (Python-based duckcli)
+duckcli jaffle_shop.duckdb                    # Interactive CLI (enhanced)
 duckcli jaffle_shop.duckdb -e "<SQL>"        # Execute SQL
 echo "<SQL>" | duckcli jaffle_shop.duckdb    # Pipe SQL
 
@@ -312,6 +322,6 @@ git push                  # Push to remote
 
 ---
 
-**Last Updated**: 2026-01-09
+**Last Updated**: 2026-01-14
 **Updated By**: Claude Sonnet 4.5
-**Session Context**: Dev container setup and configuration
+**Session Context**: Added DuckDB CLI standalone binary to dev container

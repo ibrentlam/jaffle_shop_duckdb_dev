@@ -1,0 +1,18 @@
+
+Your job will be to modify the dev container specification for this git repo.
+
+The specifications for this dev container are in the standard .devcontainer directory in a devcontainer.json
+file and accompanying docker files. 
+
+This dev container is used with Visual Studio code for database development using the open source dbt processor. 
+
+The two modifications you'll make are the following:
+
+- install the standalone binary (CLI) of duckdb in the container in a commonly accessible place, like '/usr/local/bin'
+
+- install the VS Code extension "power user for dbt" aka "dbt power user" 
+
+update the documentation for the project.
+
+You may ask for clarification at any point. 
+
