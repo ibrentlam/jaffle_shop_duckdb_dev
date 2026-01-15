@@ -9,8 +9,9 @@ The dev container includes:
 - **Python 3.11**: The base Python runtime
 - **dbt-core 1.9.4**: The dbt transformation framework
 - **dbt-duckdb 1.9.1**: DuckDB adapter for dbt
+- **DuckDB CLI**: Standalone DuckDB binary installed in `/usr/local/bin/duckdb`
 - **SQLFluff**: SQL linter for code quality
-- **duckcli**: Command-line interface for DuckDB
+- **duckcli**: Python-based command-line interface for DuckDB
 - **Git**: Version control
 - **VS Code Extensions**:
   - dbt Power User (`bastienboutonnet.vscode-dbt`)
@@ -110,7 +111,8 @@ Key settings:
 
 Defines the container image with:
 - Base image: `mcr.microsoft.com/devcontainers/python:3.11`
-- System dependencies (git)
+- System dependencies (git, curl, unzip)
+- DuckDB CLI standalone binary (installed in `/usr/local/bin/duckdb`)
 - Python dependencies from `requirements.txt`
 - Working directory: `/workspaces/jaffle_shop_duckdb_dev`
 
@@ -128,6 +130,10 @@ Defines the container image with:
    ```
 4. **Query the database**:
    ```bash
+   # Using the standalone DuckDB CLI
+   duckdb jaffle_shop.duckdb
+
+   # Or using the Python-based duckcli (with enhanced features)
    duckcli jaffle_shop.duckdb
    ```
 

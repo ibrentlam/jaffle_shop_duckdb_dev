@@ -11,7 +11,17 @@ ENV PYTHONUNBUFFERED=1 \
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
     git \
+    curl \
+    unzip \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+# Install DuckDB CLI
+RUN curl -L -o /tmp/duckdb_cli.zip https://github.com/duckdb/duckdb/releases/latest/download/duckdb_cli-linux-amd64.zip \
+    && unzip /tmp/duckdb_cli.zip -d /tmp \
+    && mv /tmp/duckdb /usr/local/bin/duckdb \
+    && chmod +x /usr/local/bin/duckdb \
+    && rm /tmp/duckdb_cli.zip \
+    && duckdb --version
 
 # Copy requirements file
 COPY requirements.txt /tmp/requirements.txt
